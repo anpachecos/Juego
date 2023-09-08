@@ -7,13 +7,13 @@ import java.awt.Graphics;
 import javax.swing.JPanel;
 
 public class GamePanel extends JPanel { 
-    private int xDelta  = 0, yDelta = 0;
+    private int xDelta  = 100, yDelta = 100;
     private MouseInputs mouseInputs;
     public GamePanel(){
         
-        mouseInputs = new MouseInputs();
+        mouseInputs = new MouseInputs(this);
         addKeyListener(new KeyboardInputs(this));
-        addMouseListener(new MouseInputs());        
+        addMouseListener(mouseInputs);        
         addMouseMotionListener(mouseInputs);
     
     }
@@ -27,13 +27,18 @@ public class GamePanel extends JPanel {
         this.yDelta +=value;
         repaint();
     }
-            
+    
+    public void setRecPos(int x, int y){
+        this.xDelta = x;
+        this.yDelta = y;
+        repaint();
+    }
             
             
             
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         
-        g.fillRect(100 + xDelta, 100 + yDelta, 200, 50);
+        g.fillRect(xDelta, yDelta, 200, 50);
     }
 }
